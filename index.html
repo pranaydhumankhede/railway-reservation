@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Ticket Reservation System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="train-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        <path d="M12 4v16M4 12h16M8 20l-2 2M16 20l2 2"></path>
+                    </svg>
+                    <div>
+                        <h1>Indian Railways</h1>
+                        <p>Online Ticket Reservation System</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+        <div class="container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Search</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Select Train</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Passengers</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Step 1: Search Form -->
+            <div id="step1" class="step-container active">
+                <div class="card">
+                    <h2>Search Trains</h2>
+                    <form id="searchForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>From Station</label>
+                                <input type="text" id="fromStation" placeholder="Enter source station" required>
+                            </div>
+                            <div class="form-group">
+                                <label>To Station</label>
+                                <input type="text" id="toStation" placeholder="Enter destination station" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Journey Date</label>
+                                <input type="date" id="journeyDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Class</label>
+                                <select id="trainClass">
+                                    <option>Sleeper (SL)</option>
+                                    <option>AC 3 Tier (3A)</option>
+                                    <option>AC 2 Tier (2A)</option>
+                                    <option>AC 1 Tier (1A)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Passengers</label>
+                                <input type="number" id="passengers" min="1" max="6" value="1" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Search Trains</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 2: Train Selection -->
+            <div id="step2" class="step-container">
+                <div class="card">
+                    <h2>Available Trains</h2>
+                    <div id="trainsList"></div>
+                    <button class="btn btn-secondary" onclick="goToStep(1)">← Back to Search</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Passenger Details -->
+            <div id="step3" class="step-container">
+                <div class="card">
+                    <h2>Passenger Details</h2>
+                    <div id="passengerForms"></div>
+                    <div class="total-price">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount" class="amount">₹0</span>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+                        <button class="btn btn-primary" onclick="confirmBooking()">Confirm Booking</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div id="step4" class="step-container">
+                <div class="card confirmation-card">
+                    <div class="success-icon">✓</div>
+                    <h2>Booking Confirmed!</h2>
+                    <p class="confirmation-text">Your ticket has been successfully booked.</p>
+                    
+                    <div class="ticket-details">
+                        <div class="ticket-row">
+                            <span>PNR Number:</span>
+                            <span id="pnrNumber" class="ticket-value"></span>
+                        </div>
+                        <div class="ticket-row">
+                            <span>Train:</span>
+                            <span id="trainName" class="ticket-value"></span>
+                        </div>
+                        <div class="ticket-row">
+                            <span>Date:</span>
+                            <span id="ticketDate" class="ticket-value"></span>
+                        </div>
+                        <div class="ticket-row">
+                            <span>Passengers:</span>
+                            <span id="ticketPassengers" class="ticket-value"></span>
+                        </div>
+                        <div class="ticket-row total-row">
+                            <span>Total Paid:</span>
+                            <span id="ticketTotal" class="ticket-value"></span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success" onclick="downloadTicket()">📥 Download Ticket</button>
+                    <button class="btn btn-link" onclick="resetBooking()">Book Another Ticket</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 Indian Railways. All rights reserved.</p>
+            <p class="footer-contact">For support, contact: support@indianrailways.com</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
